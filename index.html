@@ -14,223 +14,315 @@
       margin: 0;
       min-height: 100%;
       background: #050505;
+      overflow-x: hidden;
     }
 
     body {
-      display: grid;
       min-height: 100vh;
-      place-items: center;
+      min-height: 100svh;
       font-family: Arial, Helvetica, sans-serif;
     }
 
     .static-page {
       width: 100%;
       min-height: 100vh;
+      min-height: 100svh;
       display: grid;
       place-items: center;
-      overflow: hidden;
       background: #050505;
     }
 
     .product-stage {
       position: relative;
-      width: min(100vw, 177.78vh);
-      aspect-ratio: 16 / 9;
+      width: 100vw;
+      height: 100vh;
+      height: 100svh;
+      min-height: 100vh;
+      min-height: 100svh;
       isolation: isolate;
+      overflow: hidden;
     }
 
-    .product-stage::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0);
-      pointer-events: none;
-      transition: background 220ms ease;
-      z-index: 1;
-    }
-
-    .product-stage:has(.product-hotspot:hover)::after,
-    .product-stage:has(.product-hotspot:focus-visible)::after {
-      background: rgba(0, 0, 0, 0.18);
-    }
-
-    .static-page img {
+    /* Authoritative photographed hero — matches the supplied reference exactly */
+    .hero-photo {
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
+      object-position: center center;
       position: relative;
       z-index: 0;
     }
 
-    .product-hotspot {
+    .stage-vignette {
       position: absolute;
-      top: var(--top);
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      pointer-events: none;
+      transition: background 360ms ease;
+      z-index: 4;
+    }
+
+    .product-stage:has(.product.is-active) .stage-vignette {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .product {
+      position: absolute;
+      bottom: var(--bottom);
       left: var(--left);
       width: var(--width);
-      height: var(--height);
-      padding: 0;
-      border: 0;
-      border-radius: 999px 999px 24px 24px;
-      background: rgba(255, 255, 255, 0);
-      cursor: pointer;
-      font: inherit;
-      outline: 0;
-      transform: translateY(0);
-      transition: background 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+      transform: translateX(-50%);
       z-index: 2;
     }
 
-    .product-hotspot::before {
-      content: "";
+    .product-trigger {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      font: inherit;
+      outline: 0;
+      position: relative;
+    }
+
+    .product-hit {
       position: absolute;
-      inset: -3%;
-      border: 1px solid rgba(255, 255, 255, 0);
-      border-radius: inherit;
-      box-shadow: inset 0 0 0 999px rgba(255, 255, 255, 0);
-      transition: border-color 220ms ease, box-shadow 220ms ease;
+      inset: -4% -6%;
+      border-radius: 999px 999px 18px 18px;
     }
 
-    .product-hotspot:hover,
-    .product-hotspot:focus-visible {
-      background: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 26px 42px rgba(0, 0, 0, 0.42);
-      transform: translateY(-3%);
-      z-index: 3;
+    .product-trigger:focus-visible .product-hit {
+      outline: 1px solid rgba(255, 255, 255, 0.45);
+      outline-offset: 4px;
     }
 
-    .product-hotspot:hover::before,
-    .product-hotspot:focus-visible::before {
-      border-color: rgba(255, 255, 255, 0.46);
-      box-shadow:
-        inset 0 0 0 999px rgba(255, 255, 255, 0.07),
-        0 0 26px rgba(255, 255, 255, 0.2);
+    /* Subject PNG — hidden at rest so the hero photograph reads as one shot */
+    .product-lift {
+      display: block;
+      width: 100%;
+      height: auto;
+      transform-origin: bottom center;
+      opacity: 0;
+      transform: translateY(0) scale(1);
+      transition:
+        opacity 280ms ease,
+        transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+        filter 520ms ease;
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+
+    .product.is-active {
+      z-index: 5;
+    }
+
+    .product.is-active .product-lift {
+      opacity: 1;
+      transform: translateY(calc(var(--hover-lift, -5%) + var(--lift-base-y, 0px) + var(--nudge-y, 0px))) scale(var(--hover-scale, 1.045));
+      filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.55));
+    }
+
+    .product-stage:has(.product.is-active) .product:not(.is-active) .product-lift {
+      opacity: 0;
     }
 
     .product-card {
       position: absolute;
       top: var(--card-top);
-      left: var(--card-left);
-      width: clamp(9.25rem, 14vw, 12.25rem);
-      padding: clamp(0.65rem, 1vw, 0.85rem);
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      border-radius: 14px;
-      color: #f7f7f2;
+      left: var(--card-left, auto);
+      right: var(--card-right, auto);
+      width: clamp(9rem, 13vw, 11.75rem);
+      padding: clamp(0.7rem, 1vw, 0.9rem);
+      border: 1px solid rgba(218, 224, 226, 0.22);
+      border-radius: 12px;
+      color: #eef1ef;
       text-align: left;
-      background: linear-gradient(145deg, rgba(18, 18, 18, 0.92), rgba(4, 4, 4, 0.82));
-      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5);
+      background:
+        linear-gradient(145deg, rgba(48, 52, 54, 0.78), rgba(8, 9, 10, 0.82)),
+        radial-gradient(ellipse at 24% 0%, rgba(255, 255, 255, 0.12), transparent 62%);
+      box-shadow:
+        0 18px 38px rgba(0, 0, 0, 0.48),
+        inset 0 1px 0 rgba(255, 255, 255, 0.13);
       opacity: 0;
       pointer-events: none;
-      transform: translate(var(--card-enter-x, 0.65rem), -50%) scale(0.96);
-      transition: opacity 220ms ease, transform 220ms ease;
-      backdrop-filter: blur(10px);
-      z-index: 4;
+      transform: translate(var(--card-enter-x, 0.65rem), -50%) scale(0.94);
+      transition: opacity 280ms ease, transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+      backdrop-filter: blur(12px) saturate(0.82);
+      z-index: 6;
     }
 
-    .product-hotspot:hover + .product-card,
-    .product-hotspot:focus-visible + .product-card {
+    .product-card::before {
+      content: "";
+      display: block;
+      width: 1.75rem;
+      height: 1px;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, rgba(235, 240, 240, 0.85), transparent);
+    }
+
+    .product.is-active .product-card {
       opacity: 1;
       transform: translate(0, -50%) scale(1);
     }
 
     .product-card strong {
       display: block;
-      margin-bottom: 0.32rem;
-      font-size: clamp(0.72rem, 1.05vw, 0.88rem);
-      letter-spacing: 0.08em;
+      margin-bottom: 0.35rem;
+      font-size: clamp(0.68rem, 0.92vw, 0.8rem);
+      letter-spacing: 0.14em;
+      line-height: 1;
       text-transform: uppercase;
+      color: rgba(250, 252, 250, 0.96);
+      text-shadow: 0 1px 12px rgba(255, 255, 255, 0.12);
     }
 
     .product-card span {
       display: block;
-      font-size: clamp(0.66rem, 0.88vw, 0.78rem);
-      line-height: 1.42;
-      color: rgba(247, 247, 242, 0.82);
+      font-size: clamp(0.63rem, 0.78vw, 0.72rem);
+      line-height: 1.55;
+      letter-spacing: 0.015em;
+      color: rgba(221, 226, 226, 0.82);
     }
 
-    .info-night {
-      --card-top: 45%;
+    /* Positions calibrated to second-section.png product placement */
+    .night {
+      --bottom: 13.8%;
+      --left: 24.6%;
+      --width: 11.4%;
+      --card-top: 42%;
       --card-left: 4.5%;
       --card-enter-x: -0.65rem;
     }
 
-    .info-retinol {
-      --card-top: 33%;
-      --card-left: 35.5%;
-    }
-
-    .info-sunscreen {
-      --card-top: 37%;
-      --card-left: 55.5%;
-    }
-
-    .info-cleanser {
-      --card-top: 47%;
-      --card-left: 70%;
-    }
-
-    .info-day {
-      --card-top: 45%;
-      --card-enter-x: 0.65rem;
-      left: auto;
-      right: 4.5%;
-    }
-
-    .night {
-      --top: 31.7%;
-      --left: 20.3%;
-      --width: 8.9%;
-      --height: 46.4%;
-    }
-
     .retinol {
-      --top: 23.9%;
-      --left: 32.9%;
-      --width: 8.3%;
-      --height: 54.7%;
+      --bottom: 13.8%;
+      --left: 37.1%;
+      --width: 10.4%;
+      --card-top: 30%;
+      --card-left: 33%;
     }
 
     .sunscreen {
-      --top: 19.7%;
-      --left: 44.7%;
-      --width: 10%;
-      --height: 59.1%;
+      --bottom: 13.8%;
+      --left: 50%;
+      --width: 13.8%;
+      --hover-lift: 0%;
+      --hover-scale: 0.93;
+      --card-top: 28%;
+      --card-left: 52%;
     }
 
-    .cleanser {
-      --top: 19.9%;
-      --left: 59.4%;
-      --width: 8.9%;
-      --height: 58.8%;
+    .product.cleanser {
+      --bottom: 13.8%;
+      --left: 63.6%;
+      --width: 11%;
+      --hover-lift: 0%;
+      --hover-scale: 0.91;
+      --card-top: 44%;
+      --card-left: 68%;
+      transition:
+        top 520ms cubic-bezier(0.22, 1, 0.36, 1),
+        bottom 520ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .product.cleanser.is-active {
+      bottom: auto;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .product.cleanser.is-active .product-lift {
+      transform-origin: center center;
+      transform: translateY(var(--nudge-y, 0px)) scale(var(--hover-scale, 0.91));
     }
 
     .day {
-      --top: 25.8%;
-      --left: 71.9%;
-      --width: 8.7%;
-      --height: 52.4%;
+      --bottom: 13.8%;
+      --left: 76.4%;
+      --width: 11%;
+      --card-top: 42%;
+      --card-right: 4.5%;
+      --card-enter-x: 0.65rem;
     }
 
     @media (max-width: 760px) {
       .product-card {
-        top: 10%;
+        top: 8%;
         left: 50%;
         right: auto;
         width: min(68vw, 15rem);
-        transform: translate(-50%, -0.35rem) scale(0.96);
+        transform: translate(-50%, -0.35rem) scale(0.94);
       }
 
-      .product-hotspot:hover + .product-card,
-      .product-hotspot:focus-visible + .product-card {
+      .product.is-active .product-card {
         transform: translate(-50%, 0) scale(1);
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .product-stage::after,
-      .product-hotspot,
-      .product-hotspot::before,
+    @media (max-width: 900px), (orientation: portrait) {
+      .static-page {
+        align-content: center;
+        overflow: hidden;
+      }
+
+      .product-stage {
+        width: 100vw;
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 1672 / 941;
+      }
+
+      .hero-photo {
+        object-fit: cover;
+      }
+
       .product-card {
+        width: min(46vw, 10.5rem);
+        padding: clamp(0.55rem, 1.8vw, 0.75rem);
+      }
+
+      .product-card strong {
+        font-size: clamp(0.58rem, 1.9vw, 0.72rem);
+      }
+
+      .product-card span {
+        font-size: clamp(0.55rem, 1.7vw, 0.68rem);
+        line-height: 1.42;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .product-card {
+        top: 4%;
+        width: min(72vw, 12rem);
+      }
+
+      .night,
+      .retinol,
+      .sunscreen,
+      .product.cleanser,
+      .day {
+        --hover-scale: 1;
+        --hover-lift: -2%;
+      }
+
+      .sunscreen {
+        --hover-scale: 0.9;
+      }
+
+      .product.cleanser {
+        --hover-scale: 0.88;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .product-lift,
+      .product-card,
+      .stage-vignette {
         transition: none;
       }
     }
@@ -238,39 +330,145 @@
 </head>
 <body>
   <main class="static-page" aria-label="Native Ceuticals product lineup">
-    <div class="product-stage">
-      <img src="assets/second-section.png" alt="Native Ceuticals skincare product lineup">
+    <div class="product-stage" id="product-stage">
+      <img
+        class="hero-photo"
+        src="assets/second-section.png"
+        alt="Native Ceuticals skincare product lineup photographed on stone"
+      >
 
-      <button class="product-hotspot night" type="button" aria-label="Night Cream product information"></button>
-      <span class="product-card info-night">
-        <strong>Night Cream</strong>
-        <span>A collagen-enhancing night moisturizer made to support skin renewal while you sleep.</span>
-      </span>
+      <article class="product night">
+        <button class="product-trigger" type="button" aria-label="Night Cream product information">
+          <span class="product-hit" aria-hidden="true"></span>
+          <img class="product-lift" src="assets/subjects/night.png" alt="">
+        </button>
+        <aside class="product-card">
+          <strong>Night Cream</strong>
+          <span>A collagen-enhancing night moisturizer made to support skin renewal while you sleep.</span>
+        </aside>
+      </article>
 
-      <button class="product-hotspot retinol" type="button" aria-label="Retinol Treatment product information"></button>
-      <span class="product-card info-retinol">
-        <strong>Retinol Treatment</strong>
-        <span>A serum with retinol, peptides, and hyaluronic acid for smoother, refreshed-looking skin.</span>
-      </span>
+      <article class="product retinol">
+        <button class="product-trigger" type="button" aria-label="Retinol Treatment product information">
+          <span class="product-hit" aria-hidden="true"></span>
+          <img class="product-lift" src="assets/subjects/serum%20retinol.png" alt="">
+        </button>
+        <aside class="product-card">
+          <strong>Retinol Treatment</strong>
+          <span>A serum with retinol, peptides, and hyaluronic acid for smoother, refreshed-looking skin.</span>
+        </aside>
+      </article>
 
-      <button class="product-hotspot sunscreen" type="button" aria-label="Sunscreen product information"></button>
-      <span class="product-card info-sunscreen">
-        <strong>Sunscreen</strong>
-        <span>A mineral SPF cream that helps protect skin from daily UV exposure with a clean, lightweight finish.</span>
-      </span>
+      <article class="product sunscreen">
+        <button class="product-trigger" type="button" aria-label="Sunscreen product information">
+          <span class="product-hit" aria-hidden="true"></span>
+          <img class="product-lift" src="assets/subjects/sunscreen.png" alt="">
+        </button>
+        <aside class="product-card">
+          <strong>Sunscreen</strong>
+          <span>A mineral SPF cream that helps protect skin from daily UV exposure with a clean, lightweight finish.</span>
+        </aside>
+      </article>
 
-      <button class="product-hotspot cleanser" type="button" aria-label="Cleanser product information"></button>
-      <span class="product-card info-cleanser">
-        <strong>Cleanser</strong>
-        <span>A gentle foaming cleanser that lifts away buildup while keeping the skin barrier comfortable.</span>
-      </span>
+      <article class="product cleanser">
+        <button class="product-trigger" type="button" aria-label="Cleanser product information">
+          <span class="product-hit" aria-hidden="true"></span>
+          <img class="product-lift" src="assets/subjects/cleanser.png" alt="">
+        </button>
+        <aside class="product-card">
+          <strong>Cleanser</strong>
+          <span>A gentle foaming cleanser that lifts away buildup while keeping the skin barrier comfortable.</span>
+        </aside>
+      </article>
 
-      <button class="product-hotspot day" type="button" aria-label="Day Cream product information"></button>
-      <span class="product-card info-day">
-        <strong>Day Cream</strong>
-        <span>A brightening daily moisturizer with SPF to hydrate, protect, and prep skin for the day.</span>
-      </span>
+      <article class="product day">
+        <button class="product-trigger" type="button" aria-label="Day Cream product information">
+          <span class="product-hit" aria-hidden="true"></span>
+          <img class="product-lift" src="assets/subjects/day.png" alt="">
+        </button>
+        <aside class="product-card">
+          <strong>Day Cream</strong>
+          <span>A brightening daily moisturizer with SPF to hydrate, protect, and prep skin for the day.</span>
+        </aside>
+      </article>
+
+      <div class="stage-vignette" aria-hidden="true"></div>
     </div>
   </main>
+
+  <script>
+    (function () {
+      const stage = document.getElementById("product-stage");
+      const products = Array.from(document.querySelectorAll(".product"));
+
+      function resetProductAdjustments(product) {
+        product.style.removeProperty("--nudge-y");
+        product.style.removeProperty("--hover-scale");
+      }
+
+      function keepInViewport(product) {
+        const lift = product.querySelector(".product-lift");
+        if (!lift) {
+          return;
+        }
+
+        resetProductAdjustments(product);
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            const stageRect = stage.getBoundingClientRect();
+            const padding = 16;
+            let nudgeY = 0;
+            let liftRect = lift.getBoundingClientRect();
+
+            const bottomOverflow = liftRect.bottom - (stageRect.bottom - padding);
+            if (bottomOverflow > 0) {
+              nudgeY -= bottomOverflow;
+            }
+
+            product.style.setProperty("--nudge-y", nudgeY + "px");
+            liftRect = lift.getBoundingClientRect();
+
+            const topOverflow = stageRect.top + padding - liftRect.top;
+            const isTall = product.classList.contains("cleanser") || product.classList.contains("sunscreen");
+
+            if (topOverflow > 0 && isTall) {
+              const baseScale = parseFloat(getComputedStyle(product).getPropertyValue("--hover-scale")) || 0.91;
+              const scaleFix = Math.max(0.8, baseScale - (topOverflow / liftRect.height) * 0.65);
+              product.style.setProperty("--hover-scale", scaleFix.toFixed(3));
+            } else if (topOverflow > 0) {
+              nudgeY += topOverflow;
+              product.style.setProperty("--nudge-y", nudgeY + "px");
+            }
+          });
+        });
+      }
+
+      products.forEach((product) => {
+        const trigger = product.querySelector(".product-trigger");
+
+        const activate = () => {
+          products.forEach((item) => {
+            item.classList.remove("is-active");
+            resetProductAdjustments(item);
+          });
+          product.classList.add("is-active");
+          if (!product.classList.contains("cleanser")) {
+            keepInViewport(product);
+          }
+        };
+
+        const deactivate = () => {
+          product.classList.remove("is-active");
+          resetProductAdjustments(product);
+        };
+
+        trigger.addEventListener("mouseenter", activate);
+        trigger.addEventListener("focus", activate);
+        trigger.addEventListener("mouseleave", deactivate);
+        trigger.addEventListener("blur", deactivate);
+      });
+    })();
+  </script>
 </body>
 </html>
