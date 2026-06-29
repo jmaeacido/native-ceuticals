@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Native Ceuticals V2</title>
+  <link rel="stylesheet" href="version-2.css">
+</head>
+<body>
+  <main class="v2-shell" data-active="sunscreen">
+    <section class="v2-stage" aria-label="Native Ceuticals monochrome ritual showcase">
+      <div class="v2-backdrop" aria-hidden="true"></div>
+      <div class="v2-grid" aria-hidden="true"></div>
+
+      <header class="v2-brand">
+        <span>Native Ceuticals</span>
+        <h1>Skin Rituals<br>In Monochrome</h1>
+        <p>Clean formula essentials presented as a sculptural skincare system.</p>
+      </header>
+
+      <div class="v2-orbit" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <figure class="v2-product-display">
+        <span class="v2-glow" aria-hidden="true"></span>
+        <img id="v2-product-image" src="assets/subjects/sunscreen.png" alt="Sunscreen">
+        <figcaption id="v2-product-caption">Sunscreen</figcaption>
+      </figure>
+
+      <aside class="v2-copy" aria-live="polite">
+        <span id="v2-kicker">Daily Defense</span>
+        <h2 id="v2-title">Sunscreen</h2>
+        <p id="v2-description">A mineral SPF cream that helps protect skin from daily UV exposure with a clean, lightweight finish.</p>
+        <dl>
+          <div>
+            <dt>Texture</dt>
+            <dd id="v2-texture">Lightweight cream</dd>
+          </div>
+          <div>
+            <dt>Moment</dt>
+            <dd id="v2-moment">AM protection</dd>
+          </div>
+        </dl>
+      </aside>
+
+      <nav class="v2-rail" aria-label="Choose product">
+        <button type="button" data-key="night" data-title="Night Cream" data-kicker="PM Repair" data-image="assets/subjects/night.png" data-description="A collagen-enhancing night moisturizer made to support skin renewal while you sleep." data-texture="Rich moisturizer" data-moment="Night ritual">Night</button>
+        <button type="button" data-key="retinol" data-title="Retinol Treatment" data-kicker="Refining Serum" data-image="assets/subjects/serum%20retinol.png" data-description="A serum with retinol, peptides, and hyaluronic acid for smoother, refreshed-looking skin." data-texture="Silky serum" data-moment="Evening treatment">Retinol</button>
+        <button class="is-active" type="button" data-key="sunscreen" data-title="Sunscreen" data-kicker="Daily Defense" data-image="assets/subjects/sunscreen.png" data-description="A mineral SPF cream that helps protect skin from daily UV exposure with a clean, lightweight finish." data-texture="Lightweight cream" data-moment="AM protection">SPF</button>
+        <button type="button" data-key="cleanser" data-title="Cleanser" data-kicker="Clean Start" data-image="assets/subjects/cleanser.png" data-description="A gentle foaming cleanser that lifts away buildup while keeping the skin barrier comfortable." data-texture="Soft foam" data-moment="AM / PM cleanse">Cleanser</button>
+        <button type="button" data-key="day" data-title="Day Cream" data-kicker="Brightening Care" data-image="assets/subjects/day.png" data-description="A brightening daily moisturizer with SPF to hydrate, protect, and prep skin for the day." data-texture="Daily moisturizer" data-moment="Morning prep">Day</button>
+      </nav>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const shell = document.querySelector(".v2-shell");
+      const buttons = Array.from(document.querySelectorAll(".v2-rail button"));
+      const image = document.getElementById("v2-product-image");
+      const caption = document.getElementById("v2-product-caption");
+      const kicker = document.getElementById("v2-kicker");
+      const title = document.getElementById("v2-title");
+      const description = document.getElementById("v2-description");
+      const texture = document.getElementById("v2-texture");
+      const moment = document.getElementById("v2-moment");
+
+      function activate(button) {
+        buttons.forEach((item) => {
+          const active = item === button;
+          item.classList.toggle("is-active", active);
+          item.setAttribute("aria-pressed", active ? "true" : "false");
+        });
+
+        shell.dataset.active = button.dataset.key;
+        image.src = button.dataset.image;
+        image.alt = button.dataset.title;
+        caption.textContent = button.dataset.title;
+        kicker.textContent = button.dataset.kicker;
+        title.textContent = button.dataset.title;
+        description.textContent = button.dataset.description;
+        texture.textContent = button.dataset.texture;
+        moment.textContent = button.dataset.moment;
+      }
+
+      buttons.forEach((button) => {
+        button.setAttribute("aria-pressed", button.classList.contains("is-active") ? "true" : "false");
+        button.addEventListener("click", () => activate(button));
+        button.addEventListener("mouseenter", () => activate(button));
+        button.addEventListener("focus", () => activate(button));
+      });
+    })();
+  </script>
+</body>
+</html>

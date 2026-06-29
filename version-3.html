@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Native Ceuticals V3</title>
+  <link rel="stylesheet" href="version-3.css">
+</head>
+<body>
+  <main class="version-three" aria-label="Native Ceuticals version 3 concept">
+    <section class="concept-stage" aria-label="Interactive Native Ceuticals product scene">
+      <img
+        class="concept-image"
+        src="assets/version-3.png"
+        alt="Native Ceuticals skincare products displayed on wet stone in a monochrome botanical scene"
+      >
+
+      <div class="particle-field" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <button
+        class="product-hotspot night"
+        type="button"
+        data-name="Night Cream"
+        data-role="White cell enhancement"
+        data-copy="A nightly finishing cream designed to support a smoother-looking, rested complexion while skin is in recovery mode."
+        data-card-x="31"
+        data-card-y="44"
+        aria-label="Show Night Cream information"
+      ></button>
+
+      <button
+        class="product-hotspot retinol"
+        type="button"
+        data-name="Retinol Treatment"
+        data-role="Medical-grade serum"
+        data-copy="A focused treatment step for texture, clarity, and visible renewal in a clean, clinical routine."
+        data-card-x="48"
+        data-card-y="30"
+        aria-label="Show Retinol Treatment information"
+      ></button>
+
+      <button
+        class="product-hotspot sunscreen"
+        type="button"
+        data-name="Sunscreen"
+        data-role="Non-toxic chemical-free SPF"
+        data-copy="Daily mineral protection that anchors the daytime routine without breaking the monochrome skincare system."
+        data-card-x="70"
+        data-card-y="43"
+        aria-label="Show Sunscreen information"
+      ></button>
+
+      <button
+        class="product-hotspot cleanser"
+        type="button"
+        data-name="Cleanser"
+        data-role="Gentle foaming wash"
+        data-copy="A clean first step that lifts away buildup and prepares skin for treatment, hydration, and protection."
+        data-card-x="45"
+        data-card-y="17"
+        aria-label="Show Cleanser information"
+      ></button>
+
+      <button
+        class="product-hotspot day"
+        type="button"
+        data-name="Day Cream"
+        data-role="Skin brightening with SPF"
+        data-copy="A polished daytime moisturizer made to brighten the look of skin while keeping the routine simple."
+        data-card-x="55"
+        data-card-y="57"
+        aria-label="Show Day Cream information"
+      ></button>
+
+      <aside class="product-card" aria-live="polite" aria-hidden="true">
+        <span class="card-kicker">Product focus</span>
+        <h1>Hover a product</h1>
+        <strong>Explore the five-step system</strong>
+        <p>Move across the bottles to see each product role in the routine.</p>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const stage = document.querySelector(".concept-stage");
+    const card = document.querySelector(".product-card");
+    const hotspots = document.querySelectorAll(".product-hotspot");
+    const cardTitle = card.querySelector("h1");
+    const cardRole = card.querySelector("strong");
+    const cardCopy = card.querySelector("p");
+
+    function showProduct(button) {
+      hotspots.forEach((hotspot) => {
+        hotspot.classList.toggle("is-active", hotspot === button);
+        hotspot.setAttribute("aria-pressed", hotspot === button ? "true" : "false");
+      });
+
+      cardTitle.textContent = button.dataset.name;
+      cardRole.textContent = button.dataset.role;
+      cardCopy.textContent = button.dataset.copy;
+      card.style.setProperty("--card-x", `${button.dataset.cardX}%`);
+      card.style.setProperty("--card-y", `${button.dataset.cardY}%`);
+      card.classList.add("is-visible");
+      card.setAttribute("aria-hidden", "false");
+    }
+
+    function hideProduct() {
+      hotspots.forEach((hotspot) => {
+        hotspot.classList.remove("is-active");
+        hotspot.setAttribute("aria-pressed", "false");
+      });
+
+      card.classList.remove("is-visible");
+      card.setAttribute("aria-hidden", "true");
+    }
+
+    hotspots.forEach((hotspot) => {
+      hotspot.setAttribute("aria-pressed", "false");
+      hotspot.addEventListener("mouseenter", () => showProduct(hotspot));
+      hotspot.addEventListener("focus", () => showProduct(hotspot));
+      hotspot.addEventListener("click", () => showProduct(hotspot));
+    });
+
+    stage.addEventListener("mouseleave", hideProduct);
+  </script>
+</body>
+</html>

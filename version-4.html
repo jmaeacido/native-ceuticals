@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Native Ceuticals V4</title>
+  <link rel="stylesheet" href="version-4.css">
+</head>
+<body>
+  <svg class="svg-sprite" aria-hidden="true">
+    <symbol id="icon-moon" viewBox="0 0 24 24">
+      <path d="M17.8 18.2A8.1 8.1 0 0 1 7.1 7.5a8.2 8.2 0 0 0 9.7 9.7 8.4 8.4 0 0 0 1-.3Z"/>
+    </symbol>
+    <symbol id="icon-drop" viewBox="0 0 24 24">
+      <path d="M12 3.2s6.2 6.5 6.2 11.1A6.2 6.2 0 0 1 5.8 14.3C5.8 9.7 12 3.2 12 3.2Z"/>
+    </symbol>
+    <symbol id="icon-sun" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="4.4"/>
+      <path d="M12 2.7v2.4M12 18.9v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.7 12h2.4M18.9 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/>
+    </symbol>
+    <symbol id="icon-bubbles" viewBox="0 0 24 24">
+      <circle cx="8.2" cy="14.3" r="3.8"/>
+      <circle cx="15.8" cy="9.2" r="3.1"/>
+      <circle cx="16.8" cy="16.4" r="2"/>
+    </symbol>
+    <symbol id="icon-spark" viewBox="0 0 24 24">
+      <path d="M12 2.8 14.3 9.7 21.2 12 14.3 14.3 12 21.2 9.7 14.3 2.8 12 9.7 9.7 12 2.8Z"/>
+    </symbol>
+    <symbol id="icon-molecule" viewBox="0 0 24 24">
+      <path d="M9 7.2 12 5l3 2.2v3.6L12 13l-3-2.2V7.2ZM5.2 15.3l2.6-1.6 2.6 1.6v3.1L7.8 20l-2.6-1.6v-3.1ZM13.6 15.3l2.6-1.6 2.6 1.6v3.1L16.2 20l-2.6-1.6v-3.1Z"/>
+      <path d="M9.4 11.1 8.4 14M14.6 11.1l1 2.9"/>
+    </symbol>
+    <symbol id="icon-layers" viewBox="0 0 24 24">
+      <path d="M4.2 7.6 12 3.7l7.8 3.9-7.8 3.9-7.8-3.9Z"/>
+      <path d="m4.2 12 7.8 3.9 7.8-3.9M4.2 16.4l7.8 3.9 7.8-3.9"/>
+    </symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24">
+      <path d="M12 3.3 19 6v5.2c0 4.5-2.7 7.9-7 9.5-4.3-1.6-7-5-7-9.5V6l7-2.7Z"/>
+    </symbol>
+    <symbol id="icon-wave" viewBox="0 0 24 24">
+      <path d="M3 12.8c2 0 2-1.8 4-1.8s2 1.8 4 1.8 2-1.8 4-1.8 2 1.8 4 1.8 2-1.8 4-1.8M3 17.2c2 0 2-1.8 4-1.8s2 1.8 4 1.8 2-1.8 4-1.8 2 1.8 4 1.8 2-1.8 4-1.8"/>
+    </symbol>
+    <symbol id="icon-dna" viewBox="0 0 24 24">
+      <path d="M7.2 3.5c6.8 2.5 9.6 7.5 9.6 17M16.8 3.5c-6.8 2.5-9.6 7.5-9.6 17M8.4 7h7.2M7.4 12h9.2M8.4 17h7.2"/>
+    </symbol>
+    <symbol id="icon-leaf" viewBox="0 0 24 24">
+      <path d="M20.5 4.2C11 4.5 5.5 9.4 5.5 16.2c0 2.4 1.8 4.1 4.2 4.1 6.6 0 10.5-6.9 10.8-16.1Z"/>
+      <path d="M5.5 20.3c2.3-5.1 5.7-8.2 10.3-9.6"/>
+    </symbol>
+  </svg>
+
+  <main class="version-four" aria-label="Native Ceuticals product hover concept">
+    <section class="hero" aria-label="Clean Formula product routine">
+      <header class="brand">
+        <small>Native Ceuticals</small>
+        <h1>Clean Formula</h1>
+        <p>Clinically inspired. Naturally effective.</p>
+      </header>
+
+      <div class="products" aria-label="Product routine">
+        <button class="product" type="button" data-product="night" aria-label="View Night Cream">
+          <img src="assets/subjects/night.png" alt="">
+          <span class="product-label">
+            <svg class="product-icon" aria-hidden="true"><use href="#icon-moon"></use></svg>
+            Night Cream
+          </span>
+        </button>
+
+        <button class="product" type="button" data-product="retinol" aria-label="View Retinol Serum">
+          <img src="assets/subjects/serum%20retinol.png" alt="">
+          <span class="product-label">
+            <svg class="product-icon" aria-hidden="true"><use href="#icon-drop"></use></svg>
+            Retinol Serum
+          </span>
+        </button>
+
+        <button class="product sunscreen active" type="button" data-product="sunscreen" aria-label="View Sunscreen">
+          <span class="glow" aria-hidden="true"></span>
+          <img src="assets/subjects/sunscreen.png" alt="">
+          <span class="product-label">
+            <svg class="product-icon" aria-hidden="true"><use href="#icon-sun"></use></svg>
+            Sunscreen
+          </span>
+        </button>
+
+        <button class="product" type="button" data-product="cleanser" aria-label="View Cleanser">
+          <img src="assets/subjects/cleanser.png" alt="">
+          <span class="product-label">
+            <svg class="product-icon" aria-hidden="true"><use href="#icon-bubbles"></use></svg>
+            Cleanser
+          </span>
+        </button>
+
+        <button class="product" type="button" data-product="day" aria-label="View Day Cream">
+          <img src="assets/subjects/day.png" alt="">
+          <span class="product-label">
+            <svg class="product-icon" aria-hidden="true"><use href="#icon-spark"></use></svg>
+            Day Cream
+          </span>
+        </button>
+      </div>
+
+      <aside class="info-panel" aria-live="polite">
+        <div class="summary">
+          <span class="eyebrow">You are viewing</span>
+          <h2 id="title">Sunscreen</h2>
+          <p id="desc">A clean, non-toxic sunscreen that protects your skin from UVA/UVB rays while keeping it hydrated and healthy.</p>
+        </div>
+
+        <div class="benefits" id="benefits"></div>
+      </aside>
+
+    </section>
+  </main>
+
+  <script>
+    const productData = {
+      night: {
+        title: "Night Cream",
+        desc: "A rich, collagen-enhancing night cream designed to deeply hydrate, repair, and support skin renewal while you sleep.",
+        benefits: [
+          ["moon", "Overnight Repair", "Designed for your evening skincare routine."],
+          ["drop", "Hydration", "Locks in moisture for smoother, supple skin."],
+          ["dna", "Collagen", "Helps improve skin firmness and elasticity."],
+          ["spark", "Renewal", "Supports natural overnight repair and cell turnover."]
+        ]
+      },
+      retinol: {
+        title: "Retinol Serum",
+        desc: "A targeted retinol treatment formulated to support smoother-looking skin, improved texture, and visible renewal.",
+        benefits: [
+          ["molecule", "Retinol Treatment", "Supports smoother and more refined-looking skin."],
+          ["spark", "Vitamin C", "Helps brighten the look of dull skin."],
+          ["drop", "Hyaluronic Acid", "Adds hydration and plumpness."],
+          ["layers", "Even Texture", "Helps improve the appearance of uneven skin."]
+        ]
+      },
+      sunscreen: {
+        title: "Sunscreen",
+        desc: "A clean, non-toxic sunscreen that protects your skin from UVA/UVB rays while keeping it hydrated and healthy.",
+        benefits: [
+          ["sun", "UV Shield", "Protects against UVA and UVB rays without harmful chemicals."],
+          ["wave", "Reef Safe", "Ocean-friendly formula that's safe for you and the planet."],
+          ["shield", "SPF 25+", "Adds daily protective support for exposed skin."],
+          ["molecule", "CBG", "500mg CBG helps calm, protect, and support healthy skin."]
+        ]
+      },
+      cleanser: {
+        title: "Cleanser",
+        desc: "A gentle foaming cleanser designed to remove daily buildup while keeping the skin feeling fresh and balanced.",
+        benefits: [
+          ["bubbles", "Gentle Foam", "Cleanses without harshness."],
+          ["shield", "Skin Barrier", "Leaves skin clean and comfortable."],
+          ["drop", "Hydration", "Keeps skin feeling fresh and balanced."],
+          ["leaf", "Clean Formula", "Designed for a simple skincare routine."]
+        ]
+      },
+      day: {
+        title: "Day Cream",
+        desc: "A skin-brightening day cream with SPF designed to hydrate, protect, and support a fresh daytime complexion.",
+        benefits: [
+          ["sun", "Daily Protection", "Adds daytime protective support."],
+          ["spark", "Brightening", "Helps promote a fresher-looking complexion."],
+          ["drop", "Moisture", "Keeps skin soft throughout the day."],
+          ["shield", "SPF", "Comfortable protective care for everyday wear."]
+        ]
+      }
+    };
+
+    const products = document.querySelectorAll(".product");
+    const title = document.getElementById("title");
+    const desc = document.getElementById("desc");
+    const benefits = document.getElementById("benefits");
+
+    function setProduct(key) {
+      const data = productData[key];
+
+      title.textContent = data.title;
+      desc.textContent = data.desc;
+
+      benefits.replaceChildren(...data.benefits.map(([icon, heading, copy]) => {
+        const item = document.createElement("article");
+        item.className = "benefit";
+
+        const itemIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        itemIcon.classList.add("benefit-icon");
+        itemIcon.setAttribute("aria-hidden", "true");
+
+        const itemUse = document.createElementNS("http://www.w3.org/2000/svg", "use");
+        itemUse.setAttribute("href", `#icon-${icon}`);
+        itemIcon.append(itemUse);
+
+        const itemTitle = document.createElement("h3");
+        itemTitle.textContent = heading;
+
+        const itemCopy = document.createElement("p");
+        itemCopy.textContent = copy;
+
+        item.append(itemIcon, itemTitle, itemCopy);
+        return item;
+      }));
+
+      products.forEach((product) => {
+        product.classList.toggle("active", product.dataset.product === key);
+        product.setAttribute("aria-pressed", product.dataset.product === key ? "true" : "false");
+      });
+    }
+
+    products.forEach((product) => {
+      product.addEventListener("mouseenter", () => setProduct(product.dataset.product));
+      product.addEventListener("focus", () => setProduct(product.dataset.product));
+      product.addEventListener("click", () => setProduct(product.dataset.product));
+    });
+
+    setProduct("sunscreen");
+  </script>
+</body>
+</html>

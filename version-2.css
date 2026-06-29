@@ -1,0 +1,391 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: dark;
+  --white: #f4f4ef;
+  --soft: rgba(238, 240, 236, 0.72);
+  --dim: rgba(226, 230, 228, 0.48);
+  --line: rgba(238, 242, 240, 0.16);
+  --panel: rgba(12, 13, 13, 0.56);
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: #050505;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+}
+
+button {
+  font: inherit;
+}
+
+.v2-shell {
+  min-height: 100vh;
+  min-height: 100svh;
+  background: #050505;
+  color: var(--white);
+}
+
+.v2-stage {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.85fr) minmax(20rem, 1.2fr) minmax(18rem, 0.85fr);
+  align-items: center;
+  gap: clamp(1rem, 3vw, 3rem);
+  padding: clamp(1.2rem, 3vw, 3.5rem);
+}
+
+.v2-backdrop,
+.v2-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.v2-backdrop {
+  z-index: -3;
+  background:
+    radial-gradient(ellipse 42% 58% at 50% 45%, rgba(210, 216, 218, 0.16), transparent 64%),
+    radial-gradient(ellipse 70% 46% at 50% 100%, rgba(120, 126, 128, 0.22), transparent 70%),
+    linear-gradient(115deg, rgba(255, 255, 255, 0.05), transparent 28% 70%, rgba(255, 255, 255, 0.035)),
+    #050505;
+}
+
+.v2-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("assets/background.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.24;
+  filter: grayscale(1) contrast(1.1) blur(0.5px);
+}
+
+.v2-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, transparent 34%, rgba(0, 0, 0, 0.72) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28));
+}
+
+.v2-grid {
+  z-index: -2;
+  opacity: 0.18;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+  background-size: 8rem 8rem;
+  mask-image: radial-gradient(ellipse at center, black 0 38%, transparent 72%);
+  animation: grid-drift 18s linear infinite;
+}
+
+@keyframes grid-drift {
+  to {
+    background-position: 8rem -8rem;
+  }
+}
+
+.v2-brand {
+  position: relative;
+  z-index: 2;
+  align-self: end;
+  padding-bottom: clamp(2rem, 8vw, 7rem);
+}
+
+.v2-brand span,
+#v2-kicker,
+.v2-copy dt,
+.v2-product-display figcaption {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--dim);
+  font-size: clamp(0.62rem, 0.74vw, 0.72rem);
+}
+
+.v2-brand h1 {
+  margin: 0.85rem 0 1rem;
+  max-width: 12ch;
+  font-size: clamp(3rem, 7vw, 7.8rem);
+  line-height: 0.78;
+  letter-spacing: -0.08em;
+  text-transform: uppercase;
+}
+
+.v2-brand p {
+  max-width: 23rem;
+  margin: 0;
+  color: var(--soft);
+  font-size: clamp(0.88rem, 1.1vw, 1.05rem);
+  line-height: 1.7;
+}
+
+.v2-orbit {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  width: min(58vw, 48rem);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.v2-orbit span {
+  position: absolute;
+  inset: var(--inset, 0);
+  border: 1px solid rgba(238, 242, 240, 0.12);
+  border-radius: 50%;
+  transform: rotate(var(--rotate, 0deg)) scaleX(0.72);
+}
+
+.v2-orbit span:nth-child(2) {
+  --inset: 12%;
+  --rotate: 28deg;
+}
+
+.v2-orbit span:nth-child(3) {
+  --inset: 24%;
+  --rotate: -32deg;
+}
+
+.v2-product-display {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  align-items: end;
+  min-height: min(76vh, 42rem);
+  margin: 0;
+}
+
+.v2-product-display img {
+  position: relative;
+  z-index: 2;
+  display: block;
+  max-width: min(22vw, 15rem);
+  max-height: min(74vh, 42rem);
+  object-fit: contain;
+  filter:
+    drop-shadow(0 2.4rem 2.8rem rgba(0, 0, 0, 0.72))
+    drop-shadow(0 0 2rem rgba(255, 255, 255, 0.12));
+  animation: product-breathe 4.8s ease-in-out infinite;
+}
+
+@keyframes product-breathe {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-0.7rem) scale(1.012);
+  }
+}
+
+.v2-glow {
+  position: absolute;
+  z-index: 1;
+  bottom: 8%;
+  width: min(28vw, 22rem);
+  height: 18%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(238, 244, 242, 0.34), rgba(126, 134, 136, 0.11) 48%, transparent 72%);
+  filter: blur(12px);
+}
+
+.v2-product-display figcaption {
+  position: absolute;
+  bottom: clamp(0.6rem, 2vw, 1.8rem);
+  color: rgba(242, 244, 242, 0.55);
+}
+
+.v2-copy {
+  position: relative;
+  z-index: 3;
+  justify-self: end;
+  width: min(100%, 26rem);
+  padding: clamp(1.1rem, 2.2vw, 1.6rem);
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(145deg, rgba(42, 46, 47, 0.42), rgba(6, 7, 7, 0.62)),
+    radial-gradient(ellipse at 0 0, rgba(255, 255, 255, 0.13), transparent 54%);
+  box-shadow:
+    0 2rem 5rem rgba(0, 0, 0, 0.54),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px) saturate(0.8);
+}
+
+.v2-copy h2 {
+  margin: 0.65rem 0 1rem;
+  font-size: clamp(2rem, 4vw, 4.8rem);
+  line-height: 0.82;
+  letter-spacing: -0.07em;
+  text-transform: uppercase;
+}
+
+.v2-copy p {
+  margin: 0 0 1.5rem;
+  color: var(--soft);
+  font-size: clamp(0.9rem, 1vw, 1.02rem);
+  line-height: 1.75;
+}
+
+.v2-copy dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.v2-copy dd {
+  margin: 0.35rem 0 0;
+  color: var(--white);
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
+.v2-rail {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  bottom: clamp(1rem, 3vw, 2.2rem);
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.55rem;
+  padding: 0.45rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(7, 8, 8, 0.5);
+  backdrop-filter: blur(16px);
+}
+
+.v2-rail button {
+  min-width: 5.6rem;
+  padding: 0.78rem 0.95rem;
+  border: 1px solid transparent;
+  color: rgba(236, 240, 238, 0.62);
+  background: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.68rem;
+  cursor: pointer;
+  transition: color 220ms ease, border-color 220ms ease, background 220ms ease;
+}
+
+.v2-rail button:hover,
+.v2-rail button:focus-visible,
+.v2-rail button.is-active {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.v2-rail button:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.54);
+  outline-offset: 3px;
+}
+
+.v2-shell[data-active="night"] .v2-product-display img,
+.v2-shell[data-active="day"] .v2-product-display img {
+  max-width: min(19vw, 12.5rem);
+}
+
+.v2-shell[data-active="retinol"] .v2-product-display img {
+  max-width: min(17vw, 11rem);
+}
+
+.v2-shell[data-active="cleanser"] .v2-product-display img {
+  max-width: min(18vw, 12rem);
+}
+
+@media (max-width: 980px) {
+  body {
+    overflow: auto;
+  }
+
+  .v2-stage {
+    min-height: 100svh;
+    grid-template-columns: 1fr;
+    align-content: start;
+    gap: 1.5rem;
+    padding-bottom: 7rem;
+  }
+
+  .v2-brand {
+    align-self: auto;
+    padding-bottom: 0;
+  }
+
+  .v2-product-display {
+    min-height: 44vh;
+  }
+
+  .v2-product-display img,
+  .v2-shell[data-active="night"] .v2-product-display img,
+  .v2-shell[data-active="day"] .v2-product-display img,
+  .v2-shell[data-active="retinol"] .v2-product-display img,
+  .v2-shell[data-active="cleanser"] .v2-product-display img {
+    max-width: min(38vw, 12rem);
+    max-height: 44vh;
+  }
+
+  .v2-copy {
+    justify-self: stretch;
+    width: auto;
+  }
+
+  .v2-rail {
+    position: fixed;
+    right: 1rem;
+    left: 1rem;
+    bottom: 1rem;
+    transform: none;
+    overflow-x: auto;
+  }
+
+  .v2-rail button {
+    min-width: max-content;
+  }
+}
+
+@media (max-width: 560px) {
+  .v2-stage {
+    padding: 1rem 1rem 6.5rem;
+  }
+
+  .v2-brand h1 {
+    font-size: clamp(2.7rem, 17vw, 4rem);
+  }
+
+  .v2-copy dl {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

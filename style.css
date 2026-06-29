@@ -52,7 +52,7 @@ body {
   inset: 0;
   pointer-events: none;
   overflow: hidden;
-  z-index: 3;
+  z-index: 4;
 }
 
 .particle-field::before {
@@ -69,7 +69,7 @@ body {
     radial-gradient(circle at 63% 68%, rgba(160, 166, 168, 0.14) 0 1px, transparent 2px),
     radial-gradient(circle at 82% 76%, rgba(225, 228, 226, 0.15) 0 1px, transparent 2px);
   background-size: 9rem 4rem;
-  opacity: 0.58;
+  opacity: 0.68;
   mix-blend-mode: normal;
   animation: pavement-grit 18s linear infinite;
 }
@@ -83,7 +83,7 @@ body {
     radial-gradient(ellipse at 54% 42%, rgba(230, 234, 232, 0.06), transparent 30%),
     radial-gradient(ellipse at 86% 58%, rgba(190, 196, 198, 0.07), transparent 28%);
   filter: blur(16px);
-  opacity: 0.62;
+  opacity: 0.72;
   mix-blend-mode: screen;
   animation: atmospheric-haze 24s ease-in-out infinite alternate;
 }
@@ -92,15 +92,15 @@ body {
   position: absolute;
   left: var(--x);
   top: var(--y);
-  width: max(var(--size), 2px);
-  height: max(var(--size), 2px);
+  width: max(var(--size), 3px);
+  height: max(var(--size), 3px);
   border-radius: 50%;
   background:
-    radial-gradient(circle, rgba(245, 248, 246, var(--alpha, 0.62)) 0 42%, rgba(72, 76, 78, 0.34) 58%, transparent 72%);
+    radial-gradient(circle, rgba(250, 252, 250, var(--alpha, 0.78)) 0 36%, rgba(112, 118, 120, 0.44) 58%, transparent 74%);
   box-shadow:
-    0 0 calc(var(--size) * 3.8) rgba(230, 236, 236, 0.24),
-    0 0 1px rgba(0, 0, 0, 0.35);
-  filter: blur(var(--blur, 0.4px));
+    0 0 calc(var(--size) * 4.6) rgba(238, 244, 244, 0.34),
+    0 0 2px rgba(0, 0, 0, 0.46);
+  filter: blur(var(--blur, 0.2px));
   opacity: 0;
   transform: translate3d(0, 0, 0);
   animation: ash-drift var(--duration) ease-in-out infinite;
@@ -167,7 +167,7 @@ body {
   background: rgba(0, 0, 0, 0);
   pointer-events: none;
   transition: background 360ms ease;
-  z-index: 4;
+  z-index: 3;
 }
 
 .product-stage:has(.product.is-active) .stage-vignette {
