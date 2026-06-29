@@ -139,8 +139,7 @@ body {
   margin-top: clamp(0.6rem, 1.2vw, 1.25rem);
 }
 
-.products::before,
-.products::after {
+.products::before {
   content: "";
   position: absolute;
   left: 50%;
@@ -156,18 +155,6 @@ body {
     radial-gradient(ellipse at center, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.08) 34%, transparent 68%);
   filter: blur(1rem);
   opacity: 0.65;
-  transform: translateX(-50%);
-  z-index: -1;
-}
-
-.products::after {
-  bottom: clamp(2rem, 4.7vw, 3.7rem);
-  width: min(96vw, 76rem);
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
-  box-shadow:
-    0 1.2rem 2.8rem rgba(255, 255, 255, 0.1),
-    0 2.4rem 4rem rgba(0, 0, 0, 0.76);
   transform: translateX(-50%);
   z-index: -1;
 }
