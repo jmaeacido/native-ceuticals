@@ -402,7 +402,14 @@ button {
   outline-offset: 3px;
 }
 
-.v2-shell[data-active="night"] .v2-product-display img,
+.v2-shell[data-active="night"] .v2-product-display img {
+  object-view-box: inset(22.13% 20.56% 13.52% 8.61%);
+  width: auto;
+  height: min(55vh, 38rem);
+  max-height: min(55vh, 38rem);
+  max-width: min(50vw, 30rem);
+}
+
 .v2-shell[data-active="day"] .v2-product-display img {
   max-width: min(19vw, 12.5rem);
 }
@@ -438,12 +445,18 @@ button {
   }
 
   .v2-product-display img,
-  .v2-shell[data-active="night"] .v2-product-display img,
   .v2-shell[data-active="day"] .v2-product-display img,
   .v2-shell[data-active="retinol"] .v2-product-display img,
   .v2-shell[data-active="cleanser"] .v2-product-display img {
     max-width: min(38vw, 12rem);
     max-height: 44vh;
+  }
+
+  .v2-shell[data-active="night"] .v2-product-display img {
+    width: auto;
+    height: min(44vh, 30rem);
+    max-height: 44vh;
+    max-width: min(92vw, 28rem);
   }
 
   .v2-copy {
