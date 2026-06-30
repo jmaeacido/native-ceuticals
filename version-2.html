@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="version-2.css?v=4">
+  <link rel="stylesheet" href="version-2.css?v=5">
 </head>
 <body>
   <svg class="svg-filters" aria-hidden="true" focusable="false">
@@ -35,18 +35,18 @@
         <feComponentTransfer in="grainBand" result="texturedBand">
           <feFuncA type="gamma" amplitude="1.22" exponent="0.52" offset="0.04"/>
         </feComponentTransfer>
-        <feFlood flood-color="#cfcfcf" flood-opacity="0.62" result="bandFill"/>
+        <feFlood flood-color="#cfcfcf" flood-opacity="0.4" result="bandFill"/>
         <feComposite in="bandFill" in2="texturedBand" operator="in" result="sourceGlow"/>
 
         <feComposite in="glowCore" in2="grain" operator="in" result="grainCore"/>
         <feComponentTransfer in="grainCore" result="texturedCore">
           <feFuncA type="gamma" amplitude="1.15" exponent="0.55" offset="0"/>
         </feComponentTransfer>
-        <feFlood flood-color="#d0d0d0" flood-opacity="0.5" result="coreFill"/>
+        <feFlood flood-color="#d0d0d0" flood-opacity="0.32" result="coreFill"/>
         <feComposite in="coreFill" in2="texturedCore" operator="in" result="innerGlow"/>
 
         <feComposite in="glowHalo" in2="grain" operator="in" result="grainHalo"/>
-        <feFlood flood-color="#9a9a9a" flood-opacity="0.26" result="haloFill"/>
+        <feFlood flood-color="#9a9a9a" flood-opacity="0.14" result="haloFill"/>
         <feComposite in="haloFill" in2="grainHalo" operator="in" result="outerGlow"/>
 
         <feMerge result="allGlow">
@@ -55,7 +55,7 @@
           <feMergeNode in="sourceGlow"/>
         </feMerge>
 
-        <feMorphology in="SourceAlpha" operator="dilate" radius="14" result="clipMask"/>
+        <feMorphology in="SourceAlpha" operator="dilate" radius="10" result="clipMask"/>
         <feGaussianBlur in="clipMask" stdDeviation="1.8" result="softClip"/>
         <feComposite in="allGlow" in2="softClip" operator="in" result="clippedGlow"/>
 
@@ -91,6 +91,7 @@
         <div class="v2-product-shot">
           <img id="v2-product-image" src="assets/subjects/sunscreen.png" alt="Sunscreen">
         </div>
+        <figcaption><span id="v2-step">03</span> / 05 &mdash; Selected formula</figcaption>
       </figure>
 
       <aside class="v2-copy" aria-live="polite">
@@ -107,14 +108,15 @@
             <dd id="v2-moment">AM protection</dd>
           </div>
         </dl>
+        <button class="v2-action" id="v2-routine-action" type="button">+ Add to ritual</button>
       </aside>
 
       <nav class="v2-rail" aria-label="Choose product">
-        <button type="button" data-key="night" data-title="Night Cream" data-kicker="PM Repair" data-image="assets/subjects/night2.png" data-description="A collagen-enhancing night moisturizer made to support skin renewal while you sleep." data-texture="Rich moisturizer" data-moment="Night ritual">Night</button>
-        <button type="button" data-key="retinol" data-title="Retinol Treatment" data-kicker="Refining Serum" data-image="assets/subjects/serum%20retinol.png" data-description="A serum with retinol, peptides, and hyaluronic acid for smoother, refreshed-looking skin." data-texture="Silky serum" data-moment="Evening treatment">Retinol</button>
-        <button class="is-active" type="button" data-key="sunscreen" data-title="Sunscreen" data-kicker="Daily Defense" data-image="assets/subjects/sunscreen.png" data-description="A mineral SPF cream that helps protect skin from daily UV exposure with a clean, lightweight finish." data-texture="Lightweight cream" data-moment="AM protection">SPF</button>
-        <button type="button" data-key="cleanser" data-title="Cleanser" data-kicker="Clean Start" data-image="assets/subjects/cleanser.png" data-description="A gentle foaming cleanser that lifts away buildup while keeping the skin barrier comfortable." data-texture="Soft foam" data-moment="AM / PM cleanse">Cleanser</button>
-        <button type="button" data-key="day" data-title="Day Cream" data-kicker="Brightening Care" data-image="assets/subjects/day.png" data-description="A brightening daily moisturizer with SPF to hydrate, protect, and prep skin for the day." data-texture="Daily moisturizer" data-moment="Morning prep">Day</button>
+        <button type="button" data-step="01" data-key="night" data-title="Night Cream" data-kicker="PM Repair" data-image="assets/subjects/night2.png" data-description="A collagen-enhancing night moisturizer made to support skin renewal while you sleep." data-texture="Rich moisturizer" data-moment="Night ritual"><small>01</small>Night</button>
+        <button type="button" data-step="02" data-key="retinol" data-title="Retinol Treatment" data-kicker="Refining Serum" data-image="assets/subjects/serum%20retinol.png" data-description="A serum with retinol, peptides, and hyaluronic acid for smoother, refreshed-looking skin." data-texture="Silky serum" data-moment="Evening treatment"><small>02</small>Retinol</button>
+        <button class="is-active" type="button" data-step="03" data-key="sunscreen" data-title="Sunscreen" data-kicker="Daily Defense" data-image="assets/subjects/sunscreen.png" data-description="A mineral SPF cream that helps protect skin from daily UV exposure with a clean, lightweight finish." data-texture="Lightweight cream" data-moment="AM protection"><small>03</small>SPF</button>
+        <button type="button" data-step="04" data-key="cleanser" data-title="Cleanser" data-kicker="Clean Start" data-image="assets/subjects/cleanser.png" data-description="A gentle foaming cleanser that lifts away buildup while keeping the skin barrier comfortable." data-texture="Soft foam" data-moment="AM / PM cleanse"><small>04</small>Cleanser</button>
+        <button type="button" data-step="05" data-key="day" data-title="Day Cream" data-kicker="Brightening Care" data-image="assets/subjects/day.png" data-description="A brightening daily moisturizer with SPF to hydrate, protect, and prep skin for the day." data-texture="Daily moisturizer" data-moment="Morning prep"><small>05</small>Day</button>
       </nav>
     </section>
   </main>
@@ -129,29 +131,67 @@
       const description = document.getElementById("v2-description");
       const texture = document.getElementById("v2-texture");
       const moment = document.getElementById("v2-moment");
+      const step = document.getElementById("v2-step");
+      const routineAction = document.getElementById("v2-routine-action");
+      const routine = new Set();
+      let selectedButton = buttons.find((button) => button.classList.contains("is-active"));
+      let imageSwap = 0;
 
-      function activate(button) {
+      buttons.forEach((button) => {
+        const preload = new Image();
+        preload.src = button.dataset.image;
+      });
+
+      function updateAction(key) {
+        const added = routine.has(key);
+        routineAction.classList.toggle("is-added", added);
+        routineAction.setAttribute("aria-pressed", added ? "true" : "false");
+        routineAction.textContent = added ? "Added to ritual \u2713" : "+ Add to ritual";
+      }
+
+      function showProduct(button, commitSelection) {
+        if (commitSelection) selectedButton = button;
+
         buttons.forEach((item) => {
-          const active = item === button;
+          const active = item === selectedButton;
           item.classList.toggle("is-active", active);
           item.setAttribute("aria-pressed", active ? "true" : "false");
         });
 
         shell.dataset.active = button.dataset.key;
-        image.src = button.dataset.image;
-        image.alt = button.dataset.title;
+        const swapId = ++imageSwap;
+        image.classList.add("is-changing");
+        window.setTimeout(() => {
+          if (swapId !== imageSwap) return;
+          image.src = button.dataset.image;
+          image.alt = button.dataset.title;
+          requestAnimationFrame(() => image.classList.remove("is-changing"));
+        }, 130);
         kicker.textContent = button.dataset.kicker;
         title.textContent = button.dataset.title;
         description.textContent = button.dataset.description;
         texture.textContent = button.dataset.texture;
         moment.textContent = button.dataset.moment;
+        step.textContent = button.dataset.step;
+        updateAction(button.dataset.key);
       }
 
       buttons.forEach((button) => {
         button.setAttribute("aria-pressed", button.classList.contains("is-active") ? "true" : "false");
-        button.addEventListener("click", () => activate(button));
-        button.addEventListener("mouseenter", () => activate(button));
-        button.addEventListener("focus", () => activate(button));
+        button.addEventListener("click", () => showProduct(button, true));
+        button.addEventListener("mouseenter", () => showProduct(button, false));
+        button.addEventListener("focus", () => showProduct(button, false));
+      });
+
+      document.querySelector(".v2-rail").addEventListener("mouseleave", () => showProduct(selectedButton, false));
+      document.querySelector(".v2-rail").addEventListener("focusout", (event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) showProduct(selectedButton, false);
+      });
+
+      routineAction.addEventListener("click", () => {
+        const key = shell.dataset.active;
+        routine.has(key) ? routine.delete(key) : routine.add(key);
+        updateAction(key);
       });
 
       const sparks = document.querySelector(".v2-sparks");
