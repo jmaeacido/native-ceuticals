@@ -403,7 +403,6 @@ button {
 }
 
 .v2-shell[data-active="night"] .v2-product-display img {
-  object-view-box: inset(22.13% 20.56% 13.52% 8.61%);
   width: auto;
   height: min(55vh, 38rem);
   max-height: min(55vh, 38rem);
