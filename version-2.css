@@ -403,11 +403,10 @@ button {
 }
 
 .v2-shell[data-active="night"] .v2-product-display img {
-  object-view-box: inset(22.13% 20.56% 13.52% 8.61%);
   width: auto;
-  height: min(55vh, 38rem);
-  max-height: min(55vh, 38rem);
-  max-width: min(50vw, 30rem);
+  height: min(85.5vh, 59rem);
+  max-height: min(85.5vh, 59rem);
+  max-width: min(90vw, 60rem);
 }
 
 .v2-shell[data-active="day"] .v2-product-display img {
@@ -454,9 +453,9 @@ button {
 
   .v2-shell[data-active="night"] .v2-product-display img {
     width: auto;
-    height: min(44vh, 30rem);
-    max-height: 44vh;
-    max-width: min(92vw, 28rem);
+    height: min(68.5vh, 48rem);
+    max-height: min(68.5vh, 48rem);
+    max-width: min(92vw, 48rem);
   }
 
   .v2-copy {
