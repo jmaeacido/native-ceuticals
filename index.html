@@ -104,6 +104,36 @@
       function resetProductAdjustments(product) {
         product.style.removeProperty("--nudge-y");
         product.style.removeProperty("--hover-scale");
+        product.style.removeProperty("--card-top-offset");
+      }
+
+      function positionInfoPanel(product) {
+        const card = product.querySelector(".product-card");
+        const lift = product.querySelector(".product-lift");
+        if (!card || !lift) return;
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            const stageRect = stage.getBoundingClientRect();
+            const productRect = product.getBoundingClientRect();
+            const liftRect = lift.getBoundingClientRect();
+            const cardHeight = card.offsetHeight;
+            const viewportPadding = 16;
+            const lidOverlap = Math.min(64, liftRect.height * 0.12);
+            const preferredTop = liftRect.top - cardHeight + lidOverlap;
+            const minimumTop = Math.max(stageRect.top + viewportPadding, viewportPadding);
+            const maximumTop = Math.max(
+              minimumTop,
+              Math.min(
+                stageRect.bottom - cardHeight - viewportPadding,
+                window.innerHeight - cardHeight - viewportPadding
+              )
+            );
+            const panelTop = Math.min(Math.max(preferredTop, minimumTop), maximumTop);
+
+            product.style.setProperty("--card-top-offset", `${panelTop - productRect.top}px`);
+          });
+        });
       }
 
       function keepInViewport(product) {
@@ -153,9 +183,8 @@
             resetProductAdjustments(item);
           });
           product.classList.add("is-active");
-          if (!product.classList.contains("cleanser")) {
-            keepInViewport(product);
-          }
+          keepInViewport(product);
+          positionInfoPanel(product);
         };
 
         const deactivate = () => {
@@ -165,6 +194,7 @@
 
         trigger.addEventListener("mouseenter", activate);
         trigger.addEventListener("focus", activate);
+        trigger.addEventListener("click", activate);
         trigger.addEventListener("mouseleave", deactivate);
         trigger.addEventListener("blur", deactivate);
       });
