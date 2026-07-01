@@ -31,13 +31,6 @@ button {
   font: inherit;
 }
 
-.svg-filters {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-}
-
 .v2-shell {
   min-height: 100vh;
   min-height: 100svh;
@@ -278,11 +271,11 @@ button {
   max-height: min(74vh, 42rem);
   object-fit: contain;
   filter:
-    url(#v2-product-present)
     grayscale(1)
-    contrast(0.98)
-    brightness(0.84)
-    drop-shadow(0 2rem 2.4rem rgba(0, 0, 0, 0.72));
+    contrast(1.01)
+    brightness(0.88)
+    drop-shadow(0 0 0.22rem rgba(190, 190, 190, 0.2))
+    drop-shadow(0 1.8rem 2rem rgba(0, 0, 0, 0.78));
   transition: opacity 260ms ease, transform 260ms ease, filter 260ms ease;
 }
 

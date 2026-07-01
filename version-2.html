@@ -7,66 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="version-2.css?v=5">
+  <link rel="stylesheet" href="version-2.css?v=6">
 </head>
 <body>
-  <svg class="svg-filters" aria-hidden="true" focusable="false">
-    <defs>
-      <filter id="v2-product-present" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
-        <feMorphology in="SourceAlpha" operator="erode" radius="0.65" result="matteAlpha"/>
-        <feGaussianBlur in="matteAlpha" stdDeviation="0.35" result="softMatte"/>
-        <feComposite in="SourceGraphic" in2="softMatte" operator="in" result="cleanProduct"/>
-
-        <feMorphology in="SourceAlpha" operator="erode" radius="3.5" result="solidCore"/>
-        <feComposite in="SourceAlpha" in2="solidCore" operator="out" result="edgeShell"/>
-        <feGaussianBlur in="edgeShell" stdDeviation="1.8" result="sourceBand"/>
-
-        <feMorphology in="SourceAlpha" operator="erode" radius="1.8" result="innerAnchor"/>
-        <feGaussianBlur in="innerAnchor" stdDeviation="6" result="glowCore"/>
-        <feGaussianBlur in="innerAnchor" stdDeviation="13" result="glowHalo"/>
-
-        <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" seed="11" stitchTiles="stitch" result="noise"/>
-        <feColorMatrix in="noise" type="saturate" values="0" result="monoNoise"/>
-        <feComponentTransfer in="monoNoise" result="grain">
-          <feFuncA type="discrete" tableValues="0.18 0.42 0.28 0.56 0.34 0.68 0.22 0.74"/>
-        </feComponentTransfer>
-
-        <feComposite in="sourceBand" in2="grain" operator="in" result="grainBand"/>
-        <feComponentTransfer in="grainBand" result="texturedBand">
-          <feFuncA type="gamma" amplitude="1.22" exponent="0.52" offset="0.04"/>
-        </feComponentTransfer>
-        <feFlood flood-color="#cfcfcf" flood-opacity="0.4" result="bandFill"/>
-        <feComposite in="bandFill" in2="texturedBand" operator="in" result="sourceGlow"/>
-
-        <feComposite in="glowCore" in2="grain" operator="in" result="grainCore"/>
-        <feComponentTransfer in="grainCore" result="texturedCore">
-          <feFuncA type="gamma" amplitude="1.15" exponent="0.55" offset="0"/>
-        </feComponentTransfer>
-        <feFlood flood-color="#d0d0d0" flood-opacity="0.32" result="coreFill"/>
-        <feComposite in="coreFill" in2="texturedCore" operator="in" result="innerGlow"/>
-
-        <feComposite in="glowHalo" in2="grain" operator="in" result="grainHalo"/>
-        <feFlood flood-color="#9a9a9a" flood-opacity="0.14" result="haloFill"/>
-        <feComposite in="haloFill" in2="grainHalo" operator="in" result="outerGlow"/>
-
-        <feMerge result="allGlow">
-          <feMergeNode in="outerGlow"/>
-          <feMergeNode in="innerGlow"/>
-          <feMergeNode in="sourceGlow"/>
-        </feMerge>
-
-        <feMorphology in="SourceAlpha" operator="dilate" radius="10" result="clipMask"/>
-        <feGaussianBlur in="clipMask" stdDeviation="1.8" result="softClip"/>
-        <feComposite in="allGlow" in2="softClip" operator="in" result="clippedGlow"/>
-
-        <feMerge>
-          <feMergeNode in="clippedGlow"/>
-          <feMergeNode in="cleanProduct"/>
-        </feMerge>
-      </filter>
-    </defs>
-  </svg>
-
   <main class="v2-shell" data-active="sunscreen">
     <section class="v2-stage" aria-label="Native Ceuticals monochrome ritual showcase">
       <div class="v2-backdrop" aria-hidden="true"></div>
