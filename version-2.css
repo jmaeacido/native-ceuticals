@@ -175,11 +175,11 @@ button {
 
 .v2-sparks {
   position: absolute;
-  z-index: 1;
+  z-index: 4;
   left: 50%;
   top: 46%;
-  width: min(44vw, 36rem);
-  height: min(74vh, 42rem);
+  width: min(48vw, 40rem);
+  height: min(80vh, 46rem);
   transform: translate(-50%, -50%);
   pointer-events: none;
   overflow: visible;
@@ -192,10 +192,10 @@ button {
   width: var(--size);
   height: var(--size);
   border-radius: 50%;
-  background: rgba(176, 176, 176, 0.9);
+  background: rgba(226, 226, 226, 0.96);
   box-shadow:
-    0 0 calc(var(--size) * 2.4) rgba(190, 190, 190, 0.28),
-    0 0 1px rgba(210, 210, 210, 0.45);
+    0 0 calc(var(--size) * 3.6) rgba(230, 230, 230, 0.5),
+    0 0 2px rgba(245, 245, 245, 0.72);
   opacity: 0;
   transform: translate3d(0, 0, 0) scale(0.35);
   animation: v2-spark-twinkle var(--duration) ease-in-out infinite;
@@ -230,16 +230,16 @@ button {
   }
 
   18% {
-    opacity: 0.82;
+    opacity: 0.96;
   }
 
   52% {
-    opacity: 0.28;
-    transform: translate3d(var(--drift), -1.1rem, 0) scale(1);
+    opacity: 0.48;
+    transform: translate3d(var(--drift), -1.6rem, 0) scale(1.12);
   }
 
   78% {
-    opacity: 0.58;
+    opacity: 0.86;
   }
 }
 
@@ -254,12 +254,57 @@ button {
   margin: 0;
 }
 
+.v2-product-display::before,
+.v2-product-display::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.v2-product-display::before {
+  z-index: 0;
+  top: 8%;
+  bottom: 8%;
+  left: 50%;
+  width: min(30vw, 21rem);
+  transform: translateX(-50%);
+  border-inline: 1px solid rgba(176, 176, 176, 0.09);
+  background: linear-gradient(90deg, transparent, rgba(175, 175, 175, 0.025) 50%, transparent);
+  mask-image: linear-gradient(transparent, #000 16% 84%, transparent);
+}
+
+.v2-product-display::after {
+  z-index: 1;
+  left: 50%;
+  bottom: 7%;
+  width: min(34vw, 25rem);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(190, 190, 190, 0.28), transparent);
+}
+
 .v2-product-shot {
   position: relative;
   display: inline-grid;
   place-items: end center;
   isolation: isolate;
   animation: product-breathe 4.8s ease-in-out infinite;
+}
+
+.v2-product-aura {
+  position: absolute;
+  z-index: 0;
+  top: 46%;
+  left: 50%;
+  width: min(31vw, 23rem);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(188, 188, 188, 0.1);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(190, 190, 190, 0.055), transparent 57%),
+    repeating-radial-gradient(circle, transparent 0 22%, rgba(180, 180, 180, 0.035) 22.3% 22.6%, transparent 22.9% 34%);
+  box-shadow: inset 0 0 4rem rgba(185, 185, 185, 0.025);
 }
 
 .v2-product-display img {
@@ -273,7 +318,8 @@ button {
   filter:
     grayscale(1)
     contrast(1.01)
-    brightness(0.88)
+    brightness(0.82)
+    saturate(0.22)
     drop-shadow(0 0 0.22rem rgba(190, 190, 190, 0.2))
     drop-shadow(0 1.8rem 2rem rgba(0, 0, 0, 0.78));
   transition: opacity 260ms ease, transform 260ms ease, filter 260ms ease;
@@ -322,16 +368,38 @@ button {
   justify-self: end;
   min-width: 0;
   width: min(100%, 26rem);
-  padding: clamp(1.1rem, 2.2vw, 1.6rem);
-  border: 1px solid var(--line);
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.72)),
-    radial-gradient(ellipse at 0 0, rgba(255, 255, 255, 0.08), transparent 54%);
-  box-shadow:
-    0 2rem 5rem rgba(0, 0, 0, 0.62),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(18px) grayscale(1);
+  padding: clamp(1.1rem, 2.2vw, 1.6rem) clamp(1.1rem, 2.2vw, 1.8rem);
+  border-left: 1px solid rgba(180, 180, 180, 0.22);
+  background: linear-gradient(90deg, rgba(175, 175, 175, 0.045), transparent 88%);
   container-type: inline-size;
+}
+
+.v2-copy::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -1px;
+  width: 1px;
+  height: 3.6rem;
+  background: #bdbdbd;
+  box-shadow: 0 0 1.2rem rgba(220, 220, 220, 0.35);
+}
+
+.v2-copy-index {
+  position: absolute;
+  right: 0;
+  top: -1.6rem;
+  color: rgba(145, 145, 145, 0.7);
+  font-size: 0.56rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.v2-copy-index b {
+  margin-left: 0.35rem;
+  color: var(--heading);
+  font-size: 0.72rem;
+  font-weight: 400;
 }
 
 .v2-copy h2 {
@@ -404,17 +472,19 @@ button {
   bottom: clamp(1rem, 3vw, 2.2rem);
   transform: translateX(-50%);
   display: flex;
-  gap: 0.55rem;
-  padding: 0.45rem;
-  border: 1px solid rgba(150, 150, 150, 0.14);
-  background: rgba(0, 0, 0, 0.62);
-  backdrop-filter: blur(16px) grayscale(1);
+  gap: 0;
+  padding: 0;
+  border-block: 1px solid rgba(150, 150, 150, 0.14);
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.72) 12% 88%, transparent);
+  backdrop-filter: blur(12px) grayscale(1);
 }
 
 .v2-rail button {
+  position: relative;
   min-width: 5.6rem;
   padding: 0.78rem 0.95rem;
-  border: 1px solid transparent;
+  border: 0;
+  border-right: 1px solid rgba(150, 150, 150, 0.12);
   color: rgba(118, 118, 118, 0.88);
   background: transparent;
   text-transform: uppercase;
@@ -422,6 +492,23 @@ button {
   font-size: 0.68rem;
   cursor: pointer;
   transition: color 220ms ease, border-color 220ms ease, background 220ms ease;
+}
+
+.v2-rail button:first-child {
+  border-left: 1px solid rgba(150, 150, 150, 0.12);
+}
+
+.v2-rail button::after {
+  content: "";
+  position: absolute;
+  right: 25%;
+  bottom: -1px;
+  left: 25%;
+  height: 1px;
+  background: var(--heading);
+  opacity: 0;
+  transform: scaleX(0.3);
+  transition: opacity 220ms ease, transform 220ms ease;
 }
 
 .v2-rail button small {
@@ -436,8 +523,14 @@ button {
 .v2-rail button:focus-visible,
 .v2-rail button.is-active {
   color: var(--heading);
-  border-color: rgba(160, 160, 160, 0.24);
-  background: rgba(140, 140, 140, 0.08);
+  background: linear-gradient(180deg, rgba(140, 140, 140, 0.08), transparent);
+}
+
+.v2-rail button:hover::after,
+.v2-rail button:focus-visible::after,
+.v2-rail button.is-active::after {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 .v2-rail button:focus-visible {
@@ -467,6 +560,7 @@ button {
 @media (max-width: 980px) {
   body {
     overflow: auto;
+    overflow-x: hidden;
   }
 
   .v2-stage {
@@ -504,6 +598,7 @@ button {
   .v2-copy {
     justify-self: stretch;
     width: auto;
+    margin-top: 1rem;
   }
 
   .v2-rail {
@@ -531,7 +626,7 @@ button {
   }
 
   .v2-brand h1 {
-    font-size: clamp(2rem, 12vw, 3.05rem);
+    font-size: clamp(1.8rem, 10vw, 3.05rem);
     overflow-wrap: normal;
     word-break: normal;
   }

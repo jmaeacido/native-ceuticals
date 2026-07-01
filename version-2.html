@@ -31,6 +31,7 @@
 
       <figure class="v2-product-display">
         <span class="v2-glow" aria-hidden="true"></span>
+        <span class="v2-product-aura" aria-hidden="true"></span>
         <div class="v2-product-shot">
           <img id="v2-product-image" src="assets/subjects/sunscreen.png" alt="Sunscreen">
         </div>
@@ -38,6 +39,7 @@
       </figure>
 
       <aside class="v2-copy" aria-live="polite">
+        <span class="v2-copy-index" aria-hidden="true">Formula <b id="v2-copy-step">03</b></span>
         <span id="v2-kicker">Daily Defense</span>
         <h2 id="v2-title">Sunscreen</h2>
         <p id="v2-description">A mineral SPF cream that helps protect skin from daily UV exposure with a clean, lightweight finish.</p>
@@ -75,6 +77,7 @@
       const texture = document.getElementById("v2-texture");
       const moment = document.getElementById("v2-moment");
       const step = document.getElementById("v2-step");
+      const copyStep = document.getElementById("v2-copy-step");
       const routineAction = document.getElementById("v2-routine-action");
       const routine = new Set();
       let selectedButton = buttons.find((button) => button.classList.contains("is-active"));
@@ -116,6 +119,7 @@
         texture.textContent = button.dataset.texture;
         moment.textContent = button.dataset.moment;
         step.textContent = button.dataset.step;
+        copyStep.textContent = button.dataset.step;
         updateAction(button.dataset.key);
       }
 
@@ -139,15 +143,15 @@
 
       const sparks = document.querySelector(".v2-sparks");
       if (sparks) {
-        for (let i = 0; i < 24; i += 1) {
+        for (let i = 0; i < 46; i += 1) {
           const spark = document.createElement("span");
           spark.className = "v2-spark";
-          spark.style.setProperty("--x", `${34 + Math.random() * 32}%`);
-          spark.style.setProperty("--y", `${18 + Math.random() * 58}%`);
-          spark.style.setProperty("--size", `${1 + Math.random() * 2.2}px`);
+          spark.style.setProperty("--x", `${15 + Math.random() * 70}%`);
+          spark.style.setProperty("--y", `${8 + Math.random() * 78}%`);
+          spark.style.setProperty("--size", `${1.4 + Math.random() * 3.4}px`);
           spark.style.setProperty("--delay", `${Math.random() * 7}s`);
-          spark.style.setProperty("--duration", `${3.5 + Math.random() * 7}s`);
-          spark.style.setProperty("--drift", `${-1.2 + Math.random() * 2.4}rem`);
+          spark.style.setProperty("--duration", `${3.2 + Math.random() * 6}s`);
+          spark.style.setProperty("--drift", `${-1.8 + Math.random() * 3.6}rem`);
           sparks.append(spark);
         }
       }
