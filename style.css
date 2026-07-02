@@ -6,6 +6,8 @@ html,
 body {
   margin: 0;
   min-height: 100%;
+  width: 100%;
+  max-width: 100%;
   background: #050505;
   overflow-x: hidden;
 }
@@ -364,7 +366,7 @@ body {
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 800px) {
   .static-page {
     display: block;
     min-height: 100svh;
@@ -373,11 +375,15 @@ body {
   .product-stage {
     width: 100%;
     height: 100svh;
+    height: 100dvh;
     min-height: 34rem;
     display: flex;
     align-items: flex-end;
     gap: 8vw;
-    padding: clamp(7rem, 16svh, 9rem) 14vw clamp(3rem, 8svh, 5rem);
+    padding:
+      max(clamp(7rem, 16svh, 9rem), env(safe-area-inset-top))
+      14vw
+      max(clamp(3rem, 8svh, 5rem), env(safe-area-inset-bottom));
     overflow-x: auto;
     overflow-y: hidden;
     overscroll-behavior-x: contain;
@@ -396,7 +402,7 @@ body {
     content: "Swipe to explore  \2022  Tap a product for details";
     position: fixed;
     z-index: 8;
-    top: max(1.15rem, env(safe-area-inset-top));
+    top: max(1.15rem, calc(env(safe-area-inset-top) + 0.5rem));
     left: 50%;
     width: max-content;
     max-width: calc(100vw - 2rem);
@@ -458,10 +464,13 @@ body {
   }
 
   .product-lift {
-    width: auto;
+    width: 100%;
+    height: 100%;
     max-width: 66vw;
-    max-height: 100%;
+    max-height: min(62svh, 34rem);
     margin-inline: auto;
+    object-fit: contain;
+    object-position: center bottom;
     opacity: 0.78;
     transform-origin: bottom center;
   }
@@ -476,11 +485,34 @@ body {
 
   .product-card {
     width: min(76vw, 16rem);
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     transform: translate(-50%, -0.35rem) scale(0.94);
   }
 
   .product.is-active .product-card {
     transform: translate(-50%, 0) scale(1);
+  }
+}
+
+@media (min-width: 521px) and (max-width: 800px) {
+  .product-stage {
+    gap: 6vw;
+    padding-inline: 26vw;
+    scroll-padding-inline: 26vw;
+  }
+
+  .product {
+    flex-basis: 48vw;
+  }
+
+  .product-lift {
+    max-width: 40vw;
+  }
+
+  .product-card {
+    width: min(44vw, 18rem);
   }
 }
 
@@ -516,6 +548,20 @@ body {
 
   .day {
     --hover-lift: 1.474%;
+  }
+}
+
+@media (max-width: 340px) {
+  .product-stage::before {
+    width: calc(100vw - 1rem);
+    max-width: none;
+    padding-inline: 0.65rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.055em;
+  }
+
+  .product-card {
+    width: calc(100vw - 2rem);
   }
 }
 
