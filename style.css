@@ -390,7 +390,7 @@ body {
     scroll-padding-inline: 14vw;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
-    touch-action: pan-x;
+    touch-action: pan-x pan-y;
     aspect-ratio: auto;
   }
 
