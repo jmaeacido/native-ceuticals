@@ -121,7 +121,13 @@
             const viewportPadding = 16;
             const lidOverlap = Math.min(64, liftRect.height * 0.12);
             const preferredTop = liftRect.top - cardHeight + lidOverlap;
-            const minimumTop = Math.max(stageRect.top + viewportPadding, viewportPadding);
+            const isMobileLayout = window.matchMedia("(max-width: 800px)").matches;
+            const mobileHintClearance = parseFloat(getComputedStyle(document.documentElement).fontSize) * 4.5;
+            const minimumTop = Math.max(
+              stageRect.top + viewportPadding,
+              viewportPadding,
+              isMobileLayout ? stageRect.top + mobileHintClearance : 0
+            );
             const maximumTop = Math.max(
               minimumTop,
               Math.min(
@@ -129,7 +135,14 @@
                 window.innerHeight - cardHeight - viewportPadding
               )
             );
-            const panelTop = Math.min(Math.max(preferredTop, minimumTop), maximumTop);
+            const vacantSpaceTop = minimumTop + Math.max(
+              0,
+              (liftRect.top - minimumTop - cardHeight) / 2
+            );
+            const desiredTop = isMobileLayout
+              ? Math.min(preferredTop, vacantSpaceTop)
+              : preferredTop;
+            const panelTop = Math.min(Math.max(desiredTop, minimumTop), maximumTop);
 
             product.style.setProperty("--card-top-offset", `${panelTop - productRect.top}px`);
           });
@@ -148,27 +161,26 @@
           requestAnimationFrame(() => {
             const stageRect = stage.getBoundingClientRect();
             const padding = 16;
-            let nudgeY = 0;
-            let liftRect = lift.getBoundingClientRect();
-
-            const bottomOverflow = liftRect.bottom - (stageRect.bottom - padding);
-            if (bottomOverflow > 0) {
-              nudgeY -= bottomOverflow;
-            }
+            const topBoundary = Math.max(stageRect.top + padding, padding);
+            const bottomBoundary = Math.min(
+              stageRect.bottom - padding,
+              window.innerHeight - padding
+            );
+            const liftRect = lift.getBoundingClientRect();
+            const transform = new DOMMatrixReadOnly(getComputedStyle(lift).transform);
+            const currentScale = Math.hypot(transform.a, transform.b) || 1;
+            const unscaledHeight = liftRect.height / currentScale;
+            const unshiftedBottom = liftRect.bottom - transform.m42;
+            const nudgeY = Math.min(0, bottomBoundary - unshiftedBottom);
+            const anchoredBottom = unshiftedBottom + nudgeY;
+            const availableHeight = Math.max(0, anchoredBottom - topBoundary);
+            const baseScale = 1.06;
+            const scaleFix = Math.min(baseScale, availableHeight / unscaledHeight);
 
             product.style.setProperty("--nudge-y", nudgeY + "px");
-            liftRect = lift.getBoundingClientRect();
 
-            const topOverflow = stageRect.top + padding - liftRect.top;
-            const isTall = product.classList.contains("cleanser") || product.classList.contains("sunscreen");
-
-            if (topOverflow > 0 && isTall) {
-              const baseScale = parseFloat(getComputedStyle(product).getPropertyValue("--hover-scale")) || 0.91;
-              const scaleFix = Math.max(0.8, baseScale - (topOverflow / liftRect.height) * 0.65);
+            if (scaleFix < baseScale) {
               product.style.setProperty("--hover-scale", scaleFix.toFixed(3));
-            } else if (topOverflow > 0) {
-              nudgeY += topOverflow;
-              product.style.setProperty("--nudge-y", nudgeY + "px");
             }
           });
         });

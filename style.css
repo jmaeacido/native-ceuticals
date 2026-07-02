@@ -217,9 +217,9 @@ body {
   opacity: 0;
   transform: translateY(0) scale(1);
   transition:
-    opacity 280ms ease,
-    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 520ms ease;
+    opacity 240ms ease,
+    transform 460ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 460ms ease;
   pointer-events: none;
   will-change: transform, opacity;
 }
@@ -230,7 +230,7 @@ body {
 
 .product.is-active .product-lift {
   opacity: 1;
-  transform: translateY(calc(var(--hover-lift, 0%) + var(--lift-base-y, 0px) + var(--nudge-y, 0px))) scale(var(--hover-scale, 1.045));
+  transform: translateY(var(--nudge-y, 0px)) scale(var(--hover-scale, 1.06));
   filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.55));
 }
 
@@ -301,37 +301,30 @@ body {
   --bottom: 13.8%;
   --left: 24.6%;
   --width: 11.4%;
-  --hover-lift: 0.757%;
 }
 
 .retinol {
-  --bottom: 13.8%;
+  --bottom: 11.8%;
   --left: 37.1%;
   --width: 10.4%;
-  --hover-lift: 4.839%;
 }
 
 .sunscreen {
-  --bottom: 13.8%;
+  --bottom: 11%;
   --left: 50%;
   --width: 13.8%;
-  --hover-lift: 3.336%;
-  --hover-scale: 0.93;
 }
 
 .product.cleanser {
   --bottom: 13.8%;
   --left: 63.6%;
   --width: 11%;
-  --hover-lift: 0%;
-  --hover-scale: 0.91;
 }
 
 .day {
   --bottom: 13.8%;
   --left: 76.4%;
   --width: 11%;
-  --hover-lift: 1.54%;
 }
 
 @media (max-width: 900px), (orientation: portrait) {
@@ -519,35 +512,6 @@ body {
 @media (max-width: 520px) {
   .product-card {
     width: min(78vw, 14rem);
-  }
-
-  .night,
-  .retinol,
-  .sunscreen,
-  .product.cleanser,
-  .day {
-    --hover-scale: 1;
-  }
-
-  .sunscreen {
-    --hover-scale: 0.9;
-    --hover-lift: 3.228%;
-  }
-
-  .product.cleanser {
-    --hover-scale: 0.88;
-  }
-
-  .night {
-    --hover-lift: 0.725%;
-  }
-
-  .retinol {
-    --hover-lift: 4.631%;
-  }
-
-  .day {
-    --hover-lift: 1.474%;
   }
 }
 
